@@ -64,13 +64,13 @@ export const invitation = {
   },
   /**
    * Public path of the background track. No audio file ships with this
-   * template; drop one at `public/assets/audio/background-music.mp3` (or let
+   * template; drop one at `public/assets/audio/background-music.m4a` (or let
    * Invitation Admin write its library track over this path) and the music
    * control appears on its own. While the file is missing the control stays
    * hidden and the invitation behaves exactly as it does now.
    */
   media: {
-    music: "/assets/audio/background-music.mp3",
+    music: "/assets/audio/background-music.m4a",
   },
 } as const;
 
