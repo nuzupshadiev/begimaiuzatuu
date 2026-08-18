@@ -6,6 +6,10 @@ page, a garden gazebo photograph carries the hero, and watercolour blossoms, a
 lace medallion, engraved botanical frames and a wax seal carry the sections
 below it.
 
+Sections: intro → hero → invitation message → bride (with optional parents) →
+date and month calendar → countdown → programme → venue and map → optional
+dress code → RSVP → hosts → footer.
+
 Kyrgyz opens first; Russian is one tap away in the switcher. Every visible
 label exists in both languages.
 
@@ -56,10 +60,9 @@ Rules:
 - An empty localized string means "not provided". The matching block is not
   rendered at all, so leaving `parents` or `dressCode` blank removes those
   sections instead of leaving an empty card behind.
-- Design-only copy — section headings, the evening's programme, dress-code
-  swatches, gallery captions, asset paths — belongs in
-  `data/template-content.ts`, and reusable interface strings in
-  `data/translations.ts`. Nothing there is customer data.
+- Design-only copy — section headings, the evening's programme, the dress-code
+  note, asset paths — belongs in `data/template-content.ts`, and reusable
+  interface strings in `data/translations.ts`. Nothing there is customer data.
 - Dates are parsed field by field in `lib/date.ts` and the countdown is
   anchored to Bishkek (UTC+6), so a guest in another timezone never sees the
   previous day.
@@ -96,17 +99,17 @@ Deployed files live under `public/assets/` and every one of them is used:
 ```
 public/assets/
   images/
-    garden-gazebo.jpg        hero + intro background, gallery frame
-    feather-envelope.png     intro screen
-    ornament-frame-olive.png intro card border
-    ornament-frame-light.png hero and gallery overlay (white line art)
-    dove.png                 hero decoration
-    blossom-branch.png       message section
-    blossom-cluster.png      message section
-    venue-sketch.png         venue section
-    wax-seal.png             hosts section
+    garden-gazebo.webp        hero + intro background
+    feather-envelope.webp     intro screen
+    ornament-frame-olive.webp intro card border
+    ornament-frame-light.webp hero overlay (white line art)
+    dove.webp                 hero decoration
+    blossom-branch.webp       message section
+    blossom-cluster.webp      message section
+    venue-sketch.webp         venue section
+    wax-seal.webp             hosts section
   textures/
-    lace-oval.png            bride medallion
+    lace-oval.webp            bride medallion
   audio/                     empty; see below
 ```
 
@@ -117,11 +120,11 @@ git-ignored — only converted, web-named copies are published.
 
 1. Drop the new file into the matching `public/assets/**` folder using a
    lowercase kebab-case name.
-2. Update its entry in `templateAssets` (or `galleryImages`) in
-   `data/template-content.ts`, including `width` and `height` — those numbers
-   feed `next/image` and keep the layout from shifting.
-3. Keep transparency (PNG/WebP) for the decorative overlays; `next/image`
-   converts to AVIF/WebP for delivery on its own.
+2. Update its entry in `templateAssets` in `data/template-content.ts`,
+   including `width` and `height` — those numbers feed `next/image` and keep
+   the layout from shifting.
+3. Keep transparency (WebP/PNG) for the decorative overlays; `next/image`
+   re-encodes for delivery on its own.
 4. Run `npm run build` afterwards: a missing file fails the build rather than
    the deployment.
 
@@ -138,6 +141,7 @@ ever starts from a user gesture, beginning with the "open invitation" button.
 
 Semantic headings, labelled form fields, `aria-live` RSVP feedback, a skip
 link, visible focus rings, and decorative imagery hidden from assistive
-technology. `prefers-reduced-motion` removes the reveal, float and drift
+technology. Local script fonts are self-hosted through `next/font/local` in
+`app/fonts/`. `prefers-reduced-motion` removes the reveal, float and drift
 animations; the invitation is fully usable without JavaScript-driven motion,
 audio, or images.

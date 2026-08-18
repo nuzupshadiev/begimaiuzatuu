@@ -59,7 +59,7 @@ export function HeroSection({ language }: { language: Language }) {
           <span>{weekdayName(date, language)}</span>
         </p>
 
-        <p className="hero__note">{t(templateContent.hero.note, language)}</p>
+        {/* <p className="hero__note">{t(templateContent.hero.note, language)}</p> */}
       </div>
 
       <div className="hero__scroll" aria-hidden="true">

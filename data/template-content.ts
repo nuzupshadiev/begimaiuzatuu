@@ -97,23 +97,8 @@ export const templateContent = {
   dressCode: {
     heading: { ru: "Дресс-код", ky: "Кийим үлгүсү" },
     note: {
-      ru: "Будем благодарны, если вы поддержите палитру нашего сада",
-      ky: "Бакчабыздын түстөрүн колдосоңуздар, ыраазы болобуз",
-    },
-    /** Swatches drawn from the template palette, not from customer data. */
-    palette: [
-      { ru: "Шалфей", ky: "Шалфей", color: "#8f9d80" },
-      { ru: "Пудра", ky: "Пудра", color: "#e2bcc0" },
-      { ru: "Слоновая кость", ky: "Пил сөөгү", color: "#f2ece1" },
-      { ru: "Олива", ky: "Зайтун", color: "#5f6b4f" },
-    ],
-  },
-
-  gallery: {
-    heading: { ru: "Наш сад", ky: "Биздин бакча" },
-    quote: {
-      ru: "Пусть этот вечер расцветёт в памяти каждого, кто будет рядом",
-      ky: "Бул кече жанында болгон ар бир адамдын эсинде гүлдөп калсын",
+      ru: "Строгого дресс-кода нет — выберите наряд, в котором вам будет уютно весь вечер",
+      ky: "Катуу талап жок — кече бою өзүңүздү жайлуу сезген кийимди тандаңыз",
     },
   },
 
@@ -146,74 +131,54 @@ export const templateContent = {
 /** Deployed asset paths. Every entry below exists under `public/`. */
 export const templateAssets = {
   garden: {
-    src: "/assets/images/garden-gazebo.jpg",
+    src: "/assets/images/garden-gazebo.webp",
     width: 1200,
     height: 1488,
   },
   envelope: {
-    src: "/assets/images/feather-envelope.png",
+    src: "/assets/images/feather-envelope.webp",
     width: 799,
     height: 718,
   },
   waxSeal: {
-    src: "/assets/images/wax-seal.png",
+    src: "/assets/images/wax-seal.webp",
     width: 520,
     height: 520,
   },
   blossomBranch: {
-    src: "/assets/images/blossom-branch.png",
+    src: "/assets/images/blossom-branch.webp",
     width: 640,
     height: 615,
   },
   blossomCluster: {
-    src: "/assets/images/blossom-cluster.png",
+    src: "/assets/images/blossom-cluster.webp",
     width: 520,
     height: 520,
   },
   dove: {
-    src: "/assets/images/dove.png",
+    src: "/assets/images/dove.webp",
     width: 413,
     height: 620,
   },
   ornamentLight: {
-    src: "/assets/images/ornament-frame-light.png",
+    src: "/assets/images/ornament-frame-light.webp",
     width: 900,
     height: 637,
   },
   ornamentOlive: {
-    src: "/assets/images/ornament-frame-olive.png",
+    src: "/assets/images/ornament-frame-olive.webp",
     width: 565,
     height: 800,
   },
   venueSketch: {
-    src: "/assets/images/venue-sketch.png",
+    src: "/assets/images/venue-sketch.webp",
     width: 800,
     height: 372,
   },
   lace: {
-    src: "/assets/textures/lace-oval.png",
+    src: "/assets/textures/lace-oval.webp",
     width: 700,
     height: 466,
   },
 } as const;
 
-export interface GalleryImage {
-  readonly src: string;
-  readonly width: number;
-  readonly height: number;
-  readonly alt: LocalizedText;
-}
-
-/**
- * The decorative gallery. Drop further garden photographs in here (or empty
- * the array) — `GallerySection` renders nothing when there is no image.
- */
-export const galleryImages: readonly GalleryImage[] = [
-  {
-    ...templateAssets.garden,
-    alt: {
-      ru: "Беседка в цветущем саду",
-      ky: "Гүлдөгөн бакчадагы беседка",
-    },
-  },
-];

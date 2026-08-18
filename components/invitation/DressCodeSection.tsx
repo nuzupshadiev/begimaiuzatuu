@@ -18,19 +18,6 @@ export function DressCodeSection({ language }: { language: Language }) {
             {t(templateContent.dressCode.heading, language)}
           </h2>
 
-          <ul className="dress__swatches">
-            {templateContent.dressCode.palette.map((swatch) => (
-              <li className="dress__swatch" key={swatch.color}>
-                <span
-                  className="dress__chip"
-                  style={{ background: swatch.color }}
-                  aria-hidden="true"
-                />
-                {t(swatch, language)}
-              </li>
-            ))}
-          </ul>
-
           <p className="dress__text">{t(dressCode, language)}</p>
           <p className="lede" style={{ marginTop: "0.75rem" }}>
             {t(templateContent.dressCode.note, language)}

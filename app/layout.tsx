@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Forum, Great_Vibes, Lora } from "next/font/google";
+import { Forum, Lora } from "next/font/google";
+import localFont from "next/font/local";
 import { invitation } from "@/data/invitation";
 import { templateContent } from "@/data/template-content";
 import { DEFAULT_LANGUAGE, t } from "@/data/translations";
@@ -7,15 +8,30 @@ import { longDate, parseEventDate } from "@/lib/date";
 import "./globals.css";
 
 /**
- * Great Vibes carries the script name, Forum the engraved capitals and Lora
- * the running text. All three are loaded with `cyrillic-ext`, the subset that
- * holds the Kyrgyz letters ө, ң and ү.
+ * Asylbek Shelley carries the script lines and PF Champion Script the hero
+ * name, Forum the engraved capitals and Lora the running text. The two scripts
+ * are self-hosted and subset to Latin + Cyrillic; the Google faces are loaded
+ * with `cyrillic-ext`, the subset that holds the Kyrgyz letters ө, ң and ү.
  */
-const greatVibes = Great_Vibes({
+const asylbekShelley = localFont({
+  src: "./fonts/asylbek-shelley.woff2",
   weight: "400",
-  subsets: ["latin", "cyrillic", "cyrillic-ext"],
+  style: "normal",
   display: "swap",
-  variable: "--font-great-vibes",
+  variable: "--font-asylbek-shelley",
+  fallback: ["Segoe Script", "cursive"],
+  adjustFontFallback: false,
+});
+
+/** PF Champion Script — the copperplate roundhand of the hero name. */
+const championScript = localFont({
+  src: "./fonts/champion-script.woff2",
+  weight: "400",
+  style: "normal",
+  display: "swap",
+  variable: "--font-champion-script",
+  fallback: ["Segoe Script", "cursive"],
+  adjustFontFallback: false,
 });
 
 const forum = Forum({
@@ -68,7 +84,7 @@ export default function RootLayout({
   return (
     <html
       lang={DEFAULT_LANGUAGE}
-      className={`${greatVibes.variable} ${forum.variable} ${lora.variable} antialiased`}
+      className={`${asylbekShelley.variable} ${championScript.variable} ${forum.variable} ${lora.variable} antialiased`}
     >
       <body>{children}</body>
     </html>

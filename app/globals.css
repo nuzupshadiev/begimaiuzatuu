@@ -21,15 +21,15 @@
   --line: rgba(92, 106, 76, 0.3);
   --line-soft: rgba(92, 106, 76, 0.16);
 
-  --font-script: var(--font-great-vibes), "Segoe Script", cursive;
+  --font-script: var(--font-asylbek-shelley), "Segoe Script", cursive;
+  --font-roundhand: var(--font-champion-script), var(--font-script);
   --font-display: var(--font-forum), "Cormorant Garamond", Georgia, serif;
   --font-body: var(--font-lora), Georgia, "Times New Roman", serif;
 
   --shell: 660px;
   --gutter: clamp(1.15rem, 5vw, 2.25rem);
   --section-y: clamp(3rem, 11vw, 5.5rem);
-  --radius-arch: 50% 50% 0 0 / 38% 38% 0 0;
-}
+  }
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -43,21 +43,6 @@ body {
   font-size: clamp(0.975rem, 0.93rem + 0.25vw, 1.075rem);
   line-height: 1.72;
   overflow-x: hidden;
-}
-
-/* The garden photograph is warm and busy: a paper-toned wash keeps every
-   caption above it readable without hiding the flowers. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(
-    120% 90% at 50% 0%,
-    rgba(255, 255, 255, 0.5),
-    rgba(247, 243, 236, 0) 55%
-  );
-  pointer-events: none;
-  z-index: 0;
 }
 
 ::selection {
@@ -532,10 +517,11 @@ body::before {
   z-index: -1;
   background: linear-gradient(
     180deg,
-    rgba(247, 243, 236, 0.45) 0%,
-    rgba(247, 243, 236, 0.18) 28%,
-    rgba(243, 238, 228, 0.78) 62%,
-    rgba(247, 243, 236, 0.96) 86%,
+    rgba(247, 243, 236, 0.14) 0%,
+    rgba(247, 243, 236, 0) 20%,
+    rgba(247, 243, 236, 0) 50%,
+    rgba(246, 241, 232, 0.5) 74%,
+    rgba(247, 243, 236, 0.9) 91%,
     var(--paper) 100%
   );
 }
@@ -602,11 +588,34 @@ body::before {
 }
 
 .hero__name {
+  /* The one line the reference sets in full copperplate roundhand. */
+  font-family: var(--font-roundhand);
   font-size: clamp(3.4rem, 20vw, 6rem);
-  text-shadow: 0 2px 18px rgba(247, 243, 236, 0.8);
+  text-shadow: 0 2px 22px rgba(247, 243, 236, 0.95);
+}
+
+/* The caption sits on the photograph itself now: a small halo behind the
+   block keeps it readable instead of the section-wide wash that used to mute
+   the whole garden. */
+.hero__content::before {
+  content: "";
+  position: absolute;
+  inset: -1.75rem -2.5rem;
+  z-index: -1;
+  background: radial-gradient(
+    70% 100% at 50% 52%,
+    rgba(247, 243, 236, 0.7),
+    rgba(247, 243, 236, 0) 72%
+  );
+  pointer-events: none;
+}
+
+.hero__content .eyebrow {
+  text-shadow: 0 1px 12px rgba(247, 243, 236, 0.92);
 }
 
 .hero__date {
+  text-shadow: 0 1px 12px rgba(247, 243, 236, 0.92);
   display: flex;
   align-items: center;
   gap: clamp(0.7rem, 3vw, 1.1rem);
@@ -1043,80 +1052,13 @@ body::before {
 
 /* --- dress code -------------------------------------------------------- */
 
-.dress__swatches {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(0.9rem, 4vw, 1.5rem);
-  margin-block: clamp(1.2rem, 5vw, 1.8rem);
-  padding: 0;
-  list-style: none;
-}
-
-.dress__swatch {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-faint);
-}
-
-.dress__chip {
-  width: clamp(2.6rem, 12vw, 3.4rem);
-  height: clamp(2.6rem, 12vw, 3.4rem);
-  border-radius: 999px;
-  border: 1px solid rgba(59, 61, 51, 0.12);
-  box-shadow: inset 0 -6px 14px rgba(59, 61, 51, 0.08);
-}
-
 .dress__text {
+  margin-top: clamp(1.2rem, 5vw, 1.8rem);
   font-family: var(--font-display);
   font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
   letter-spacing: 0.05em;
   color: var(--ink);
-  max-width: 26rem;
-}
-
-/* --- gallery ----------------------------------------------------------- */
-
-.gallery__frame {
-  position: relative;
-  width: min(100%, 26rem);
-  margin-inline: auto;
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius-arch);
-  overflow: hidden;
-  box-shadow: 0 24px 48px rgba(59, 61, 51, 0.18);
-}
-
-.gallery__frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.gallery__ornament {
-  position: absolute;
-  top: 0.6rem;
-  left: 0.6rem;
-  width: calc(100% - 1.2rem);
-  height: calc(100% - 1.2rem);
-  mix-blend-mode: screen;
-  opacity: 0.7;
-  pointer-events: none;
-  object-fit: fill;
-}
-
-.gallery__quote {
-  margin-top: clamp(1.2rem, 5vw, 1.8rem);
-  font-family: var(--font-display);
-  font-size: clamp(1.05rem, 0.95rem + 0.55vw, 1.35rem);
-  line-height: 1.55;
-  color: var(--ink);
-  max-width: 26rem;
-  margin-inline: auto;
+  max-width: 32rem;
 }
 
 /* --- rsvp -------------------------------------------------------------- */
@@ -1362,22 +1304,17 @@ body::before {
     font-size: clamp(5rem, 8vw, 7rem);
   }
 
+
   .intro__card {
     width: min(100%, 28rem);
   }
 
-  .message__body,
-  .gallery__quote {
+  .message__body {
     max-width: 36rem;
   }
 
-  /* Desktop gets room to breathe: the medallion and the gallery frame sit
-     side by side instead of stacking like the phone layout. */
+  /* Desktop gets room to breathe rather than stretching the phone layout. */
   .bride__medallion {
-    width: min(100%, 30rem);
-  }
-
-  .gallery__frame {
     width: min(100%, 30rem);
   }
 
