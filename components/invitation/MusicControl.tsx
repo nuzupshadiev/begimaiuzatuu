@@ -37,29 +37,52 @@ export function useBackgroundMusic(src: string | null): BackgroundMusic {
   }, [src]);
 
   useEffect(() => {
-    const audio = audioRef.current;
-    return () => audio?.pause();
-  }, []);
-
-  const play = useCallback(() => {
     if (!src) return;
 
-    if (!audioRef.current) {
-      const audio = new Audio(src);
-      audio.loop = true;
-      audio.preload = "none";
-      audio.addEventListener("play", () => setPlaying(true));
-      audio.addEventListener("pause", () => setPlaying(false));
-      audio.addEventListener("error", () => {
-        setPlaying(false);
-        setAvailable(false);
-      });
-      audioRef.current = audio;
-    }
+    // Created on mount and buffered ahead of the tap, so play starts
+    // instantly instead of waiting on a fetch.
+    const audio = new Audio(src);
+    audio.loop = true;
+    audio.preload = "auto";
+    audio.addEventListener("play", () => setPlaying(true));
+    audio.addEventListener("pause", () => setPlaying(false));
+    audio.addEventListener("error", () => {
+      setPlaying(false);
+      setAvailable(false);
+    });
+    audioRef.current = audio;
+
+    // Browsers defer media fetches until playback starts, which made the first
+    // tap wait a few seconds on the network. Download the track ourselves and
+    // hand the element a local copy, so the tap starts the music instantly.
+    // Until the copy lands (or if the fetch fails) the plain URL still plays.
+    let objectUrl: string | null = null;
+    const prefetch = new AbortController();
+    fetch(src, { signal: prefetch.signal })
+      .then((response) => (response.ok ? response.blob() : null))
+      .then((blob) => {
+        if (!blob || audioRef.current !== audio) return;
+        objectUrl = URL.createObjectURL(blob);
+        // A swap mid-play would restart the track; the network copy is fine.
+        if (audio.paused) audio.src = objectUrl;
+      })
+      .catch(() => {});
+
+    return () => {
+      prefetch.abort();
+      audio.pause();
+      audioRef.current = null;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [src]);
+
+  const play = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
 
     // Autoplay can still be refused; the invitation is fine without sound.
-    void audioRef.current.play().catch(() => setPlaying(false));
-  }, [src]);
+    void audio.play().catch(() => setPlaying(false));
+  }, []);
 
   const start = useCallback(() => {
     if (audioRef.current && !audioRef.current.paused) return;
