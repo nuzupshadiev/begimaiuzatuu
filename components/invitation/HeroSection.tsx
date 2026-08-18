@@ -3,12 +3,13 @@
 import Image from "next/image";
 import { invitation } from "@/data/invitation";
 import { templateAssets, templateContent } from "@/data/template-content";
-import { t, translations, type Language } from "@/data/translations";
+import { t, type Language } from "@/data/translations";
 import { numericDate, parseEventDate, weekdayName } from "@/lib/date";
 
 /**
- * The garden photograph fills the first screen, with the engraved ornament
- * sheet laid over it and the bride's name set in script above the date.
+ * The photograph fills the first screen as a backdrop — decorative only, so it
+ * is hidden from assistive technology — with the engraved ornament sheet laid
+ * over it and the bride's name set in script above the date.
  */
 export function HeroSection({ language }: { language: Language }) {
   const date = parseEventDate(invitation.event.date);
@@ -18,7 +19,7 @@ export function HeroSection({ language }: { language: Language }) {
       <div className="hero__photo">
         <Image
           src={templateAssets.garden.src}
-          alt={t(translations.a11y.gardenPhoto, language)}
+          alt=""
           fill
           priority
           sizes="100vw"

@@ -19,9 +19,6 @@ export function DressCodeSection({ language }: { language: Language }) {
           </h2>
 
           <p className="dress__text">{t(dressCode, language)}</p>
-          <p className="lede" style={{ marginTop: "0.75rem" }}>
-            {t(templateContent.dressCode.note, language)}
-          </p>
         </Reveal>
       </div>
     </section>

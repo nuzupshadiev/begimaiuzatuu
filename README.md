@@ -1,10 +1,11 @@
 # Garden — Kyz Uzatuu invitation template
 
 A single-page Kyz Uzatuu (кыз узатуу) invitation built with the Next.js App
-Router. The design is a blooming-garden theme: a feathered envelope opens the
-page, a garden gazebo photograph carries the hero, and watercolour blossoms, a
-lace medallion, engraved botanical frames and a wax seal carry the sections
-below it.
+Router. A feathered envelope opens the page, a garden gazebo photograph is the
+hero backdrop, and watercolour blossoms, a lace medallion, engraved botanical
+frames and a wax seal carry the sections below it. The photograph is scenery
+only — no copy promises the guest a garden venue, so the template suits any
+restaurant or hall.
 
 Sections: intro → hero → invitation message → bride (with optional parents) →
 date and month calendar → countdown → programme → venue and map → optional
@@ -60,9 +61,9 @@ Rules:
 - An empty localized string means "not provided". The matching block is not
   rendered at all, so leaving `parents` or `dressCode` blank removes those
   sections instead of leaving an empty card behind.
-- Design-only copy — section headings, the evening's programme, the dress-code
-  note, asset paths — belongs in `data/template-content.ts`, and reusable
-  interface strings in `data/translations.ts`. Nothing there is customer data.
+- Design-only copy — section headings, the evening's programme, asset paths —
+  belongs in `data/template-content.ts`, and reusable interface strings in
+  `data/translations.ts`. Nothing there is customer data.
 - Dates are parsed field by field in `lib/date.ts` and the countdown is
   anchored to Bishkek (UTC+6), so a guest in another timezone never sees the
   previous day.

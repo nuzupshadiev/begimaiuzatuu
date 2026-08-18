@@ -4,6 +4,7 @@ import { invitation } from "@/data/invitation";
 import { templateContent } from "@/data/template-content";
 import { t, type Language } from "@/data/translations";
 import { longDate, parseEventDate } from "@/lib/date";
+import { PriglasiCredit } from "./PriglasiCredit";
 
 export function FooterSection({ language }: { language: Language }) {
   const date = parseEventDate(invitation.event.date);
@@ -19,6 +20,7 @@ export function FooterSection({ language }: { language: Language }) {
           {`${t(templateContent.eventName, language)} · ${longDate(date, language)}`}
         </p>
       </div>
+      <PriglasiCredit language={language} />
     </footer>
   );
 }
