@@ -60,7 +60,7 @@ export const templateContent = {
   },
 
   schedule: {
-    heading: { ru: "Программа вечера", ky: "Кечтин программасы" },
+    heading: { ru: "Программа вечера", ky: "Кеченин жүрүшү" },
     items: [
       {
         offsetMinutes: 0,
@@ -177,4 +177,3 @@ export const templateAssets = {
     height: 466,
   },
 } as const;
-
