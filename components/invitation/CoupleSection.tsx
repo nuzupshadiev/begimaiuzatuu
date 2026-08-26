@@ -34,7 +34,10 @@ export function CoupleSection({ language }: { language: Language }) {
               sizes="(min-width: 64rem) 30rem, (min-width: 48rem) 24rem, 90vw"
             />
             <p className="bride__inner">
-              <span className="script bride__name">{t(bride.name, language)}</span>
+              <span className="script bride__name">
+                {t(bride.name, language)}
+                {t(templateContent.message.nameSuffix, language)}
+              </span>
             </p>
           </div>
 

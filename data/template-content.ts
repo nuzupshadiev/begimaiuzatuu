@@ -41,6 +41,8 @@ export const templateContent = {
 
   message: {
     heading: { ru: "Дорогие гости!", ky: "Урматтуу коноктор!" },
+    /** Punctuation that closes the bride's name; empty where none. */
+    nameSuffix: { ru: "!", ky: "" },
   },
 
   bride: {
