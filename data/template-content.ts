@@ -48,10 +48,8 @@ export const templateContent = {
     },
     /** Punctuation that closes the bride's name; empty where none. */
     nameSuffix: { ru: "!", ky: "" },
-  },
-
-  bride: {
-    parentsLabel: { ru: "Родители невесты", ky: "Кыздын ата-энеси" },
+    /** Signs the invitation off, immediately above the parents' names. */
+    hostsLabel: { ru: "С уважением,", ky: "Урматтоо менен," },
   },
 
   date: {
@@ -112,14 +110,10 @@ export const templateContent = {
     },
   },
 
-  hosts: {
-    heading: { ru: "С уважением", ky: "Урматтоо менен" },
-  },
-
   footer: {
     farewell: {
-      ru: "Ждём вас на нашем торжестве",
-      ky: "Сиздерди тоюбузда күтөбүз",
+      ru: "С нетерпением ждём встречи с вами!",
+      ky: "Сиздерди чыдамсыздык менен күтөбүз!",
     },
   },
 
@@ -141,11 +135,6 @@ export const templateAssets = {
     src: "/assets/images/feather-envelope.webp",
     width: 799,
     height: 718,
-  },
-  waxSeal: {
-    src: "/assets/images/wax-seal.webp",
-    width: 520,
-    height: 520,
   },
   blossomBranch: {
     src: "/assets/images/blossom-branch.webp",

@@ -3,15 +3,15 @@
 import Image from "next/image";
 import { invitation } from "@/data/invitation";
 import { templateAssets, templateContent } from "@/data/template-content";
-import { t, type Language } from "@/data/translations";
-import { BrideParents, CoupleSection } from "./CoupleSection";
+import { has, t, type Language } from "@/data/translations";
+import { CoupleSection } from "./CoupleSection";
 import { Reveal } from "./Reveal";
 import { SprigIcon } from "./icons";
 
 /**
  * The invitation itself, framed by the watercolour blossom branches: the
  * address to the guests, the line that introduces the bride, her name in the
- * lace medallion, and the sentence her family closes on.
+ * lace medallion, the sentence her family closes on, and their signature.
  *
  * Kyrgyz finishes that sentence in the closing paragraph; Russian finishes it
  * on the name, so it carries no closing text and the paragraph is skipped.
@@ -21,6 +21,7 @@ export function InvitationMessage({ language }: { language: Language }) {
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
+  const parents = invitation.people.bride.parents;
 
   return (
     <section className="section message" aria-labelledby="message-heading">
@@ -64,7 +65,14 @@ export function InvitationMessage({ language }: { language: Language }) {
           </Reveal>
         ) : null}
 
-        <BrideParents language={language} />
+        {has(parents, language) ? (
+          <Reveal className="stack-center">
+            <p className="message__hosts-label">
+              {t(templateContent.message.hostsLabel, language)}
+            </p>
+            <p className="script message__hosts">{t(parents, language)}</p>
+          </Reveal>
+        ) : null}
 
         <Reveal className="stack-center">
           <p className="sprig" aria-hidden="true" style={{ marginTop: "1.5rem" }}>

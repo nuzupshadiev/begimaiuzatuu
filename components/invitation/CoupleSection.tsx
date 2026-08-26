@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { invitation } from "@/data/invitation";
 import { templateAssets, templateContent } from "@/data/template-content";
-import { has, t, type Language } from "@/data/translations";
-import { Reveal } from "./Reveal";
+import { t, type Language } from "@/data/translations";
 
 /**
  * Kyz Uzatuu honours one person, so this is a single centred medallion rather
@@ -14,8 +13,8 @@ import { Reveal } from "./Reveal";
  * `InvitationMessage` renders this between the lead line and the closing
  * sentence, so the medallion is the name *inside* that sentence rather than a
  * section of its own — it carries no heading and no background band. Her
- * parents come from `BrideParents` after the sentence has finished, since a
- * parents line under the name would cut it in half.
+ * parents sign the invitation off in the footer, so no parents line is placed
+ * under the name where it would cut that sentence in half.
  */
 export function CoupleSection({ language }: { language: Language }) {
   const { bride } = invitation.people;
@@ -39,22 +38,5 @@ export function CoupleSection({ language }: { language: Language }) {
         </p>
       </div>
     </div>
-  );
-}
-
-/** The bride's parents, shown once the invitation sentence has finished. */
-export function BrideParents({ language }: { language: Language }) {
-  const { bride } = invitation.people;
-  if (!has(bride.parents, language)) return null;
-
-  return (
-    <Reveal className="stack-center">
-      <div className="bride__parents">
-        <span className="bride__parents-label">
-          {t(templateContent.bride.parentsLabel, language)}
-        </span>
-        <span className="bride__parents-value">{t(bride.parents, language)}</span>
-      </div>
-    </Reveal>
   );
 }

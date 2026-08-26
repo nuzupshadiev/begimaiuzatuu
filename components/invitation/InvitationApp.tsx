@@ -13,7 +13,6 @@ import { DateSection } from "./DateSection";
 import { DressCodeSection } from "./DressCodeSection";
 import { FooterSection } from "./FooterSection";
 import { HeroSection } from "./HeroSection";
-import { HostsSection } from "./HostsSection";
 import { IntroScreen } from "./IntroScreen";
 import { InvitationMessage } from "./InvitationMessage";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -90,7 +89,6 @@ export function InvitationApp() {
         <VenueSection language={language} />
         <DressCodeSection language={language} />
         <RsvpSection language={language} />
-        <HostsSection language={language} />
       </main>
 
       <FooterSection language={language} />

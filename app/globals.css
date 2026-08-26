@@ -787,28 +787,18 @@ body {
   font-size: clamp(2.6rem, 14vw, 3.6rem);
 }
 
-.bride__parents {
+.message__hosts-label {
   margin-top: clamp(1.4rem, 5vw, 2rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.bride__parents-label {
   font-family: var(--font-display);
-  font-size: 0.72rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
   color: var(--ink-faint);
-  margin-inline-end: -0.28em;
 }
 
-.bride__parents-value {
-  font-family: var(--font-display);
-  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
-  letter-spacing: 0.06em;
-  color: var(--ink);
+.message__hosts {
+  margin-top: 0.3rem;
+  font-size: clamp(1.5rem, 7vw, 2rem);
+  line-height: 1.2;
 }
 
 /* --- date + calendar --------------------------------------------------- */
@@ -1225,17 +1215,6 @@ body {
 
 /* --- hosts + footer ---------------------------------------------------- */
 
-.hosts__seal {
-  width: clamp(4.5rem, 20vw, 6.5rem);
-  height: auto;
-  margin-bottom: clamp(0.8rem, 3vw, 1.2rem);
-  filter: drop-shadow(0 10px 18px rgba(59, 61, 51, 0.16));
-}
-
-.hosts__value {
-  font-size: clamp(2rem, 10vw, 2.8rem);
-}
-
 .footer {
   position: relative;
   padding-block: clamp(2.5rem, 9vw, 4rem);
@@ -1251,22 +1230,27 @@ body {
   line-height: 1.2;
 }
 
-.footer__meta {
-  margin-top: 0.9rem;
-  font-family: var(--font-display);
-  font-size: 0.76rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: rgba(242, 239, 230, 0.75);
-  margin-inline-end: -0.26em;
+.footer__sprig {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: clamp(1rem, 4vw, 1.5rem);
+  color: rgba(242, 239, 230, 0.85);
 }
 
-.footer__rule {
-  width: 3.5rem;
+.footer__sprig svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  flex: none;
+}
+
+.footer__sprig::before,
+.footer__sprig::after {
+  content: "";
   height: 1px;
-  background: rgba(242, 239, 230, 0.4);
-  border: 0;
-  margin: clamp(1rem, 4vw, 1.4rem) auto 0;
+  width: clamp(2rem, 12vw, 4.5rem);
+  background: rgba(242, 239, 230, 0.35);
 }
 
 /* --- responsive -------------------------------------------------------- */
