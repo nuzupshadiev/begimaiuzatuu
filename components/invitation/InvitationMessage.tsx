@@ -21,7 +21,7 @@ export function InvitationMessage({ language }: { language: Language }) {
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
-  const parents = invitation.people.bride.parents;
+  const hosts = invitation.weddingDetails.hosts;
 
   return (
     <section className="section message" aria-labelledby="message-heading">
@@ -65,12 +65,12 @@ export function InvitationMessage({ language }: { language: Language }) {
           </Reveal>
         ) : null}
 
-        {has(parents, language) ? (
+        {has(hosts, language) ? (
           <Reveal className="stack-center">
             <p className="message__hosts-label">
               {t(templateContent.message.hostsLabel, language)}
             </p>
-            <p className="script message__hosts">{t(parents, language)}</p>
+            <p className="script message__hosts">{t(hosts, language)}</p>
           </Reveal>
         ) : null}
 

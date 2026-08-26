@@ -3,7 +3,7 @@
  * template.
  *
  * Nothing here is customer data — Invitation Admin never rewrites this file.
- * Customer values (names, parents, date, venue, message, hosts, dress code)
+ * Customer values (names, date, venue, message, hosts, dress code)
  * live in `data/invitation.ts`.
  */
 import type { LocalizedText } from "./translations";
@@ -48,7 +48,7 @@ export const templateContent = {
     },
     /** Punctuation that closes the bride's name; empty where none. */
     nameSuffix: { ru: "!", ky: "" },
-    /** Signs the invitation off, immediately above the parents' names. */
+    /** Signs the invitation off, immediately above the hosts' names. */
     hostsLabel: { ru: "С уважением,", ky: "Урматтоо менен," },
   },
 

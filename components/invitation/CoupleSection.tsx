@@ -13,8 +13,8 @@ import { t, type Language } from "@/data/translations";
  * `InvitationMessage` renders this between the lead line and the closing
  * sentence, so the medallion is the name *inside* that sentence rather than a
  * section of its own — it carries no heading and no background band. Her
- * parents sign the invitation off in the footer, so no parents line is placed
- * under the name where it would cut that sentence in half.
+ * hosts sign the invitation off at the end of the message, so no signature
+ * line is placed under the name where it would cut that sentence in half.
  */
 export function CoupleSection({ language }: { language: Language }) {
   const { bride } = invitation.people;
