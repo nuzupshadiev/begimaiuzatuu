@@ -7,7 +7,7 @@ frames and a wax seal carry the sections below it. The photograph is scenery
 only — no copy promises the guest a garden venue, so the template suits any
 restaurant or hall.
 
-Sections: intro → hero → invitation message → bride (with optional parents) →
+Sections: intro → hero → invitation message → bride →
 date and month calendar → countdown → programme → venue and map → optional
 dress code → RSVP → hosts → footer.
 
@@ -43,7 +43,7 @@ so the file must keep its shape:
 export const invitation = {
   slug: "garden-kyz-uzatuu",
   type: "kyz_uzatuu",
-  people: { bride: { name: { ru, ky }, parents: { ru, ky } } },
+  people: { bride: { name: { ru, ky } } },
   event: { date: "YYYY-MM-DD", startTime: "HH:mm" },
   venue: { name: { ru, ky }, address: { ru, ky }, mapUrl },
   weddingDetails: { customMessage: { ru, ky }, hosts: { ru, ky }, dressCode: { ru, ky } },
@@ -59,7 +59,7 @@ Rules:
 - This is a Kyz Uzatuu template: there is no `people.groom`, and none is
   required.
 - An empty localized string means "not provided". The matching block is not
-  rendered at all, so leaving `parents` or `dressCode` blank removes those
+  rendered at all, so leaving `dressCode` blank removes those
   sections instead of leaving an empty card behind.
 - Design-only copy — section headings, the evening's programme, asset paths —
   belongs in `data/template-content.ts`, and reusable interface strings in
