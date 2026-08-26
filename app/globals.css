@@ -747,6 +747,10 @@ body {
 
 .bride {
   position: relative;
+  /* A flex item of `.stack-center`, which centres by shrinking its children to
+     fit. The medallion sizes itself with `min(100%, 24rem)`, so without this
+     the percentage would resolve against a shrink-to-fit box and collapse. */
+  align-self: stretch;
 }
 
 .bride__medallion {

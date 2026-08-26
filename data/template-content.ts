@@ -41,12 +41,16 @@ export const templateContent = {
 
   message: {
     heading: { ru: "Дорогие гости!", ky: "Урматтуу коноктор!" },
+    /** Introduces the bride's name, which the medallion below it carries. */
+    lead: {
+      ru: "Приглашаем вас стать почётными гостями нашего торжества, посвящённого проводам нашей любимой дочери",
+      ky: "Сиздерди сүйүктүү",
+    },
     /** Punctuation that closes the bride's name; empty where none. */
     nameSuffix: { ru: "!", ky: "" },
   },
 
   bride: {
-    heading: { ru: "Наша дочь", ky: "Кызыбыз" },
     parentsLabel: { ru: "Родители невесты", ky: "Кыздын ата-энеси" },
   },
 

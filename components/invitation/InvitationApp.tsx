@@ -9,7 +9,6 @@ import {
   type Language,
 } from "@/data/translations";
 import { Countdown } from "./Countdown";
-import { CoupleSection } from "./CoupleSection";
 import { DateSection } from "./DateSection";
 import { DressCodeSection } from "./DressCodeSection";
 import { FooterSection } from "./FooterSection";
@@ -85,7 +84,6 @@ export function InvitationApp() {
       <main id="invitation-content">
         <HeroSection language={language} />
         <InvitationMessage language={language} />
-        <CoupleSection language={language} />
         <DateSection language={language} />
         <Countdown language={language} />
         <ScheduleSection language={language} />

@@ -9,50 +9,52 @@ import { Reveal } from "./Reveal";
 /**
  * Kyz Uzatuu honours one person, so this is a single centred medallion rather
  * than the two columns a wedding template would use — the layout stays
- * balanced without any groom content, and the parents line disappears
- * entirely when the admin leaves it empty.
+ * balanced without any groom content.
+ *
+ * `InvitationMessage` renders this between the lead line and the closing
+ * sentence, so the medallion is the name *inside* that sentence rather than a
+ * section of its own — it carries no heading and no background band. Her
+ * parents come from `BrideParents` after the sentence has finished, since a
+ * parents line under the name would cut it in half.
  */
 export function CoupleSection({ language }: { language: Language }) {
   const { bride } = invitation.people;
-  const showParents = has(bride.parents, language);
 
   return (
-    <section className="section section--warm bride" aria-labelledby="bride-heading">
-      <div className="shell stack-center">
-        <Reveal className="stack-center">
-          <h2 id="bride-heading" className="heading">
-            {t(templateContent.bride.heading, language)}
-          </h2>
-
-          <div className="bride__medallion">
-            <Image
-              className="bride__lace"
-              src={templateAssets.lace.src}
-              alt=""
-              width={templateAssets.lace.width}
-              height={templateAssets.lace.height}
-              sizes="(min-width: 64rem) 30rem, (min-width: 48rem) 24rem, 90vw"
-            />
-            <p className="bride__inner">
-              <span className="script bride__name">
-                {t(bride.name, language)}
-                {t(templateContent.message.nameSuffix, language)}
-              </span>
-            </p>
-          </div>
-
-          {showParents ? (
-            <div className="bride__parents">
-              <span className="bride__parents-label">
-                {t(templateContent.bride.parentsLabel, language)}
-              </span>
-              <span className="bride__parents-value">
-                {t(bride.parents, language)}
-              </span>
-            </div>
-          ) : null}
-        </Reveal>
+    <div className="bride">
+      <div className="bride__medallion">
+        <Image
+          className="bride__lace"
+          src={templateAssets.lace.src}
+          alt=""
+          width={templateAssets.lace.width}
+          height={templateAssets.lace.height}
+          sizes="(min-width: 64rem) 30rem, (min-width: 48rem) 24rem, 90vw"
+        />
+        <p className="bride__inner">
+          <span className="script bride__name">
+            {t(bride.name, language)}
+            {t(templateContent.message.nameSuffix, language)}
+          </span>
+        </p>
       </div>
-    </section>
+    </div>
+  );
+}
+
+/** The bride's parents, shown once the invitation sentence has finished. */
+export function BrideParents({ language }: { language: Language }) {
+  const { bride } = invitation.people;
+  if (!has(bride.parents, language)) return null;
+
+  return (
+    <Reveal className="stack-center">
+      <div className="bride__parents">
+        <span className="bride__parents-label">
+          {t(templateContent.bride.parentsLabel, language)}
+        </span>
+        <span className="bride__parents-value">{t(bride.parents, language)}</span>
+      </div>
+    </Reveal>
   );
 }
