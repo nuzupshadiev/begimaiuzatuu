@@ -7,6 +7,7 @@ import { has, t, type Language } from "@/data/translations";
 import { CoupleSection } from "./CoupleSection";
 import { Reveal } from "./Reveal";
 import { SprigIcon } from "./icons";
+import { splitBrideMessage } from "@/lib/bride-message";
 
 /**
  * The invitation itself, framed by the watercolour blossom branches: the
@@ -17,7 +18,10 @@ import { SprigIcon } from "./icons";
  * on the name, so it carries no closing text and the paragraph is skipped.
  */
 export function InvitationMessage({ language }: { language: Language }) {
-  const closing = t(invitation.weddingDetails.customMessage, language)
+  const { lead, rest } = splitBrideMessage(
+    t(invitation.weddingDetails.customMessage, language),
+  );
+  const closing = rest
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
@@ -48,9 +52,11 @@ export function InvitationMessage({ language }: { language: Language }) {
             {t(templateContent.message.heading, language)}
           </h2>
 
-          <div className="message__body">
-            <p>{t(templateContent.message.lead, language)}</p>
-          </div>
+          {lead ? (
+            <div className="message__body">
+              <p>{lead}</p>
+            </div>
+          ) : null}
         </Reveal>
 
         <CoupleSection language={language} />

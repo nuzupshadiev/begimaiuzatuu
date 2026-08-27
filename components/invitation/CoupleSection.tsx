@@ -4,6 +4,7 @@ import Image from "next/image";
 import { invitation } from "@/data/invitation";
 import { templateAssets, templateContent } from "@/data/template-content";
 import { t, type Language } from "@/data/translations";
+import { splitBrideMessage } from "@/lib/bride-message";
 
 /**
  * Kyz Uzatuu honours one person, so this is a single centred medallion rather
@@ -33,7 +34,9 @@ export function CoupleSection({ language }: { language: Language }) {
         <p className="bride__inner">
           <span className="script bride__name">
             {t(bride.name, language)}
-            {t(templateContent.message.nameSuffix, language)}
+            {splitBrideMessage(
+              t(invitation.weddingDetails.customMessage, language),
+            ).suffix}
           </span>
         </p>
       </div>
