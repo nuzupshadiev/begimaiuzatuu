@@ -22,6 +22,8 @@ export interface BackgroundMusic {
  */
 export function useBackgroundMusic(src: string | null): BackgroundMusic {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  // Set only by the hidden-tab pause below, never by the guest's own.
+  const pausedByHiddenTab = useRef(false);
   const [available, setAvailable] = useState(false);
   const [playing, setPlaying] = useState(false);
 
@@ -52,6 +54,22 @@ export function useBackgroundMusic(src: string | null): BackgroundMusic {
     });
     audioRef.current = audio;
 
+    // A tab the guest has left falls silent, and the track picks up where it
+    // stopped when they come back — but only when the tab is what stopped it.
+    // Resuming plays the element directly, so the music never starts over.
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        if (audio.paused) return;
+        pausedByHiddenTab.current = true;
+        audio.pause();
+        return;
+      }
+      if (!pausedByHiddenTab.current) return;
+      pausedByHiddenTab.current = false;
+      void audio.play().catch(() => setPlaying(false));
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     // Browsers defer media fetches until playback starts, which made the first
     // tap wait a few seconds on the network. Download the track ourselves and
     // hand the element a local copy, so the tap starts the music instantly.
@@ -64,12 +82,14 @@ export function useBackgroundMusic(src: string | null): BackgroundMusic {
         if (!blob || audioRef.current !== audio) return;
         objectUrl = URL.createObjectURL(blob);
         // A swap mid-play would restart the track; the network copy is fine.
-        if (audio.paused) audio.src = objectUrl;
+        // A track the hidden tab paused counts as mid-play.
+        if (audio.paused && !pausedByHiddenTab.current) audio.src = objectUrl;
       })
       .catch(() => {});
 
     return () => {
       prefetch.abort();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       audio.pause();
       audioRef.current = null;
       if (objectUrl) URL.revokeObjectURL(objectUrl);
@@ -91,6 +111,8 @@ export function useBackgroundMusic(src: string | null): BackgroundMusic {
 
   const toggle = useCallback(() => {
     const audio = audioRef.current;
+    // A deliberate press always takes over from the hidden-tab pause.
+    pausedByHiddenTab.current = false;
     if (audio && !audio.paused) {
       audio.pause();
       return;
