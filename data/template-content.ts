@@ -9,18 +9,32 @@
 import type { LocalizedText } from "./translations";
 
 export interface ScheduleItem {
-  /** Minutes after `invitation.event.startTime`. */
+  /** Minutes after `invitation.event.startTime`; negative for earlier rows. */
   readonly offsetMinutes: number;
   readonly title: LocalizedText;
   readonly icon: ScheduleIcon;
 }
 
-export type ScheduleIcon = "gate" | "bloom" | "dove" | "dance" | "lantern";
+export type ScheduleIcon =
+  | "gate"
+  | "bloom"
+  | "dove"
+  | "feast"
+  | "dance"
+  | "lantern";
 
 export const templateContent = {
   eventName: {
     ru: "Кыз узату",
     ky: "Кыз узатуу",
+  },
+
+  /** Opens the link-preview description, followed by the date and venue. */
+  preview: {
+    invite: {
+      ru: "Приглашаем вас на кыз узату!",
+      ky: "Сиздерди кыз узатуу тоюна чакырабыз!",
+    },
   },
 
   intro: {
@@ -59,7 +73,7 @@ export const templateContent = {
   countdown: {
     heading: {
       ru: "До торжества осталось",
-      ky: "Салтанатка чейин калды",
+      ky: "Салтанатка чейин",
     },
   },
 
@@ -67,29 +81,29 @@ export const templateContent = {
     heading: { ru: "Программа вечера", ky: "Кеченин жүрүшү" },
     items: [
       {
-        offsetMinutes: 0,
+        offsetMinutes: -60,
         icon: "gate",
-        title: { ru: "Встреча гостей", ky: "Конокторду тосуп алуу" },
+        title: { ru: "Сбор гостей", ky: "Конокторду тосуп алуу" },
       },
       {
-        offsetMinutes: 45,
+        offsetMinutes: 0,
         icon: "bloom",
         title: { ru: "Начало торжества", ky: "Салтанаттын башталышы" },
       },
       {
-        offsetMinutes: 105,
-        icon: "dove",
-        title: { ru: "Благословение и поздравления", ky: "Ак бата жана куттуктоолор" },
+        offsetMinutes: 60,
+        icon: "feast",
+        title: { ru: "Праздничный дастархан", ky: "Майрамдык дасторкон" },
       },
       {
-        offsetMinutes: 165,
+        offsetMinutes: 120,
         icon: "dance",
-        title: { ru: "Танец с родителями", ky: "Ата-эне менен бий" },
+        title: { ru: "Праздничная программа", ky: "Майрамдык программа" },
       },
       {
-        offsetMinutes: 240,
+        offsetMinutes: 300,
         icon: "lantern",
-        title: { ru: "Проводы невесты", ky: "Кызды узатуу" },
+        title: { ru: "Завершение вечера", ky: "Кеченин аякташы" },
       },
     ] as readonly ScheduleItem[],
   },

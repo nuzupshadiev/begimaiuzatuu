@@ -11,30 +11,30 @@
  * somewhere to write.
  */
 export const invitation = {
-  slug: "garden-kyz-uzatuu",
+  slug: "begimai-kyz-uzatuu",
   type: "kyz_uzatuu",
   people: {
     bride: {
       name: {
-        ru: "Айсулуу",
-        ky: "Айсулуу",
+        ru: "Бегимай",
+        ky: "Бегимай",
       },
     },
   },
   event: {
-    date: "2026-09-12",
+    date: "2026-10-14",
     startTime: "17:00",
   },
   venue: {
     name: {
-      ru: 'ресторан "Ак-Кеме"',
-      ky: '"Ак-Кеме" рестораны',
+      ru: "ресторан Eldorado Grand",
+      ky: "Eldorado Grand рестораны",
     },
     address: {
-      ru: "г. Бишкек, пр. Мира, 93",
-      ky: "Бишкек шаары, Мир проспекти, 93",
+      ru: "г. Ош, ул. Бекмамата Осмонова, 101Б",
+      ky: "Ош шаары, Бекмамат Осмонов көчөсү, 101Б",
     },
-    mapUrl: "https://2gis.kg/bishkek",
+    mapUrl: "https://2gis.kg/osh/firm/70000001034423594",
   },
   weddingDetails: {
     customMessage: {
@@ -42,18 +42,18 @@ export const invitation = {
       ky: "Сиздерди сүйүктүү {{bride}} кызыбыздын узатуу тоюна арналган салтанаттуу ак дасторконубуздун кадырлуу коногу болууга чакырабыз!",
     },
     hosts: {
-      ru: "Бакыт и Гүлмира Асановы",
-      ky: "Бакыт жана Гүлмира Асановдор",
+      ru: "Мурат, Нуржамал",
+      ky: "Мурат, Нуржамал",
     },
     dressCode: {
-      ru: "Вы можете выбрать наряд, подходящий для вечернего торжества и удобный для вас. Строгих требований нет — главное, чувствуйте себя комфортно.",
-      ky: "Кечки майрамга жарашыктуу, өзүңүзгө ыңгайлуу кийим тандасаңыз болот. Катуу талаптар жок — эң башкысы, өзүңүздү жайлуу сезиңиз.",
+      ru: "",
+      ky: "",
     },
   },
   /**
-   * Absolute RSVP endpoint. Left empty in the template: the app falls back to
-   * `${NEXT_PUBLIC_RSVP_API_URL}/api/rsvp`, and Invitation Admin writes the
-   * generated absolute URL here at deployment time.
+   * Absolute RSVP endpoint. Left empty, answers go to this deployment's own
+   * `/api/rsvp` route, which appends them to the Google Sheet named by
+   * `GOOGLE_SHEET_ID`. An absolute URL here sends them to that service instead.
    */
   rsvp: {
     endpoint: "",

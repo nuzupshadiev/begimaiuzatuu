@@ -51,19 +51,38 @@ const lora = Lora({
 const brideName = t(invitation.people.bride.name, DEFAULT_LANGUAGE);
 const eventName = t(templateContent.eventName, DEFAULT_LANGUAGE);
 const eventDate = longDate(parseEventDate(invitation.event.date), DEFAULT_LANGUAGE);
-const description = `${eventName}: ${brideName}. ${eventDate}.`;
+const venueName = t(invitation.venue.name, DEFAULT_LANGUAGE);
+const title = `${brideName} — ${eventName}`;
+// The text WhatsApp and Telegram print under the link preview.
+const description = [
+  `${t(templateContent.preview.invite, DEFAULT_LANGUAGE)} ${eventDate}, ${invitation.event.startTime}`,
+  venueName,
+]
+  .filter(Boolean)
+  .join(" · ");
 
+/**
+ * The preview picture is `app/opengraph-image.jpg`, which Next.js links on its
+ * own. On Vercel its absolute URL is built from the production domain, so no
+ * `metadataBase` is needed.
+ */
 export const metadata: Metadata = {
-  title: `${brideName} — ${eventName}`,
+  title,
   description,
   applicationName: eventName,
   robots: { index: false, follow: false },
   openGraph: {
     type: "website",
-    title: `${brideName} — ${eventName}`,
+    title,
     description,
+    siteName: eventName,
     locale: "ky_KG",
     alternateLocale: ["ru_RU"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
   },
 };
 

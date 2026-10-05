@@ -17,10 +17,10 @@ const MIN_GUESTS: number = templateContent.rsvpGuests.min;
 const MAX_GUESTS: number = templateContent.rsvpGuests.max;
 
 /**
- * Posts straight to the central RSVP API — this template ships no route of its
- * own and stores nothing locally. Every state the guest can land in (idle,
- * invalid, submitting, success, server error, network error, retry) is
- * represented, and a failed attempt keeps the typed values.
+ * Posts to `app/api/rsvp`, which writes the answer to the Google Sheet. Every
+ * state the guest can land in (idle, invalid, submitting, success, server
+ * error, network error, retry) is represented, and a failed attempt keeps the
+ * typed values.
  */
 export function RsvpSection({ language }: { language: Language }) {
   const ids = useId();
@@ -33,6 +33,7 @@ export function RsvpSection({ language }: { language: Language }) {
   const [guestName, setGuestName] = useState("");
   const [attendance, setAttendance] = useState<Attendance | null>(null);
   const [guestCount, setGuestCount] = useState(MIN_GUESTS);
+  const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<{
     name?: string;
@@ -71,7 +72,13 @@ export function RsvpSection({ language }: { language: Language }) {
     setFormError(null);
 
     try {
-      await submitRsvp({ guestName: trimmed, attendance, guestCount, language });
+      await submitRsvp({
+        guestName: trimmed,
+        attendance,
+        guestCount,
+        language,
+        website,
+      });
       setStatus("success");
     } catch (error) {
       // Values are deliberately kept so a retry needs no re-typing.
@@ -238,6 +245,17 @@ export function RsvpSection({ language }: { language: Language }) {
                   </span>
                 </div>
               ) : null}
+
+              <div className="rsvp__trap" aria-hidden="true">
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(event) => setWebsite(event.target.value)}
+                />
+              </div>
 
               <button type="submit" className="button" disabled={submitting}>
                 {submitting

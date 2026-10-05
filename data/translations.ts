@@ -96,7 +96,7 @@ export const translations = {
     nameLabel: { ru: "Имя и фамилия", ky: "Аты-жөнүңүз" },
     namePlaceholder: { ru: "Ваше имя и фамилия", ky: "Аты-жөнүңүз" },
     attendanceLabel: { ru: "Сможете прийти?", ky: "Келе аласызбы?" },
-    attendanceYes: { ru: "С радостью приду", ky: "Кубаныч менен барам" },
+    attendanceYes: { ru: "С радостью приду", ky: "Сөзсүз барам" },
     attendanceNo: { ru: "К сожалению, не смогу", ky: "Тилекке каршы, бара албайм" },
     guestCountLabel: { ru: "Количество гостей", ky: "Конокторуңуздун саны" },
     guestCountHint: {

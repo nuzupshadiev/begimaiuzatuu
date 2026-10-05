@@ -1,10 +1,10 @@
 /**
- * RSVP submission against the central RSVP API.
+ * RSVP submission.
  *
- * This template never stores answers itself and ships no `app/api/rsvp` route:
- * the browser posts straight to the shared service. The endpoint comes from
- * `invitation.rsvp.endpoint` when Invitation Admin has written the generated
- * absolute URL into it, otherwise from `NEXT_PUBLIC_RSVP_API_URL`.
+ * The form posts to this deployment's own `app/api/rsvp` route, which appends
+ * the answer to the Google Sheet with credentials the browser never sees. An
+ * absolute `invitation.rsvp.endpoint` (written by Invitation Admin) overrides
+ * it and sends answers to that service instead.
  */
 import { invitation } from "@/data/invitation";
 import type { Language } from "@/data/translations";
@@ -16,19 +16,18 @@ export interface RsvpPayload {
   attendance: Attendance;
   guestCount: number;
   language: Language;
+  /** Honeypot: hidden from people, so anything in it came from a bot. */
+  website: string;
 }
 
 export class RsvpConfigurationError extends Error {}
 export class RsvpRequestError extends Error {}
 
-/** Resolves the absolute RSVP endpoint, or null when nothing is configured. */
-export function resolveRsvpEndpoint(): string | null {
-  const generated = invitation.rsvp.endpoint.trim();
-  if (isAbsoluteHttpUrl(generated)) return generated;
+const LOCAL_ENDPOINT = "/api/rsvp";
 
-  const base = process.env.NEXT_PUBLIC_RSVP_API_URL?.trim().replace(/\/$/, "");
-  if (!base || !isAbsoluteHttpUrl(base)) return null;
-  return `${base}/api/rsvp`;
+export function resolveRsvpEndpoint(): string {
+  const generated = invitation.rsvp.endpoint.trim();
+  return isAbsoluteHttpUrl(generated) ? generated : LOCAL_ENDPOINT;
 }
 
 export async function submitRsvp({
@@ -36,11 +35,9 @@ export async function submitRsvp({
   attendance,
   guestCount,
   language,
+  website,
 }: RsvpPayload): Promise<void> {
   const endpoint = resolveRsvpEndpoint();
-  if (!endpoint) {
-    throw new RsvpConfigurationError("RSVP API is not configured.");
-  }
 
   let response: Response;
   try {
@@ -53,11 +50,17 @@ export async function submitRsvp({
         attendance,
         guestCount: attendance === "no" ? 0 : guestCount,
         language,
+        website,
       }),
     });
   } catch {
     // Offline, DNS failure, CORS rejection — nothing reached the service.
     throw new TypeError("Network request failed.");
+  }
+
+  // The route answers 503 while the Google Sheets variables are missing.
+  if (response.status === 503) {
+    throw new RsvpConfigurationError("RSVP storage is not configured.");
   }
 
   const result: unknown = await response.json().catch(() => null);

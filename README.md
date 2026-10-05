@@ -18,7 +18,7 @@ label exists in both languages.
 
 ```bash
 pnpm install
-cp .env.example .env.local   # point the RSVP form at the central API
+cp .env.example .env.local   # Google Sheets credentials for the RSVP form
 pnpm dev
 ```
 
@@ -70,28 +70,48 @@ Rules:
 
 ## RSVP integration
 
-The form posts straight to the shared RSVP service. There is no API route in
-this repository and nothing is written to disk.
+The form posts to this deployment's own route, `app/api/rsvp/route.ts`, which
+validates the answer and appends a row to a Google Sheet as a service account:
 
 ```
-POST ${NEXT_PUBLIC_RSVP_API_URL}/api/rsvp
-{ invitationSlug, guestName, attendance: "yes" | "no", guestCount, language }
+POST /api/rsvp
+{ guestName, attendance: "yes" | "no", guestCount, language }
+→ Дата и время | Имя гостя | Ответ | Количество гостей | Язык
 ```
 
-`lib/rsvp.ts` resolves the endpoint from `invitation.rsvp.endpoint` when
-Invitation Admin has written the generated absolute URL into it, and otherwise
-from `NEXT_PUBLIC_RSVP_API_URL`. With neither configured the form shows a
-localized "not configured yet" message instead of pretending to succeed.
+The header row is written automatically the first time the tab is empty.
+Values are stored as plain text (`RAW`), so nothing a guest types is run as a
+formula, and a hidden honeypot field turns away simple bots.
 
-Set the variable in `.env.local` for local work and in the Vercel project for a
-deployment:
+Setup:
 
-```dotenv
-NEXT_PUBLIC_RSVP_API_URL=https://invitation-rsvp-api.vercel.app
-```
+1. In Google Cloud, enable the **Google Sheets API**, create a service account
+   and download a JSON key for it.
+2. Share the spreadsheet with the service account's email as an **Editor**.
+3. Set the variables from `.env.example` in `.env.local` locally and under
+   Project → Settings → Environment Variables on Vercel, then redeploy:
+   `GOOGLE_CLIENT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GOOGLE_SHEET_ID`, and
+   optionally `GOOGLE_SHEET_TAB`.
 
-No spreadsheet id, token or service-account credential belongs in this
-repository.
+The credentials are read only on the server (`lib/google-sheets.ts`) and never
+reach the browser; none of them carry the `NEXT_PUBLIC_` prefix. `.env*` files
+are git-ignored — only `.env.example` is committed. While the variables are
+missing the route answers 503 and the form shows a localized "not configured
+yet" message instead of pretending to succeed.
+
+An absolute URL in `invitation.rsvp.endpoint` overrides the route and sends
+answers to that service instead.
+
+## Link preview
+
+WhatsApp, Telegram and other messengers read the Open Graph tags set in
+`app/layout.tsx`: the title and description are built from
+`data/invitation.ts`, and the picture is `app/opengraph-image.jpg` — a
+1200×630 JPEG kept under 200 KB so WhatsApp shows it. It carries the bride's
+name and date as text, so replace it whenever those change. On Vercel the
+image URL is made absolute from the production domain automatically; a local
+build warns that it falls back to `localhost`, which is expected. WhatsApp
+caches previews, so a link shared before a change may keep the old card.
 
 ## Assets
 

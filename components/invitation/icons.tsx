@@ -57,6 +57,16 @@ export function ScheduleIconGlyph({ name }: { name: ScheduleIcon }) {
           <circle cx="17.4" cy="8.2" r=".7" fill="currentColor" stroke="none" />
         </svg>
       );
+    case "feast":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true" {...strokeProps}>
+          <path d="M4 12h16a8 6 0 0 1-16 0Z" />
+          <path d="M9.5 19.5h5" />
+          <path d="M9 9.5c-1-1.2 1-2.3 0-3.5" />
+          <path d="M12 9.5c-1-1.2 1-2.3 0-3.5" />
+          <path d="M15 9.5c-1-1.2 1-2.3 0-3.5" />
+        </svg>
+      );
     case "dance":
       return (
         <svg viewBox="0 0 24 24" aria-hidden="true" {...strokeProps}>
