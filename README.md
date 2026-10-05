@@ -17,9 +17,9 @@ label exists in both languages.
 ## Local development
 
 ```bash
-npm install
+pnpm install
 cp .env.example .env.local   # point the RSVP form at the central API
-npm run dev
+pnpm dev
 ```
 
 Open http://localhost:3000.
@@ -27,10 +27,10 @@ Open http://localhost:3000.
 ## Checks and production build
 
 ```bash
-npm run lint
-npm run typecheck
-npm run build
-npm run start
+pnpm lint
+pnpm typecheck
+pnpm build
+pnpm start
 ```
 
 ## Invitation data contract
@@ -126,7 +126,7 @@ git-ignored — only converted, web-named copies are published.
    the layout from shifting.
 3. Keep transparency (WebP/PNG) for the decorative overlays; `next/image`
    re-encodes for delivery on its own.
-4. Run `npm run build` afterwards: a missing file fails the build rather than
+4. Run `pnpm build` afterwards: a missing file fails the build rather than
    the deployment.
 
 ### Background music
