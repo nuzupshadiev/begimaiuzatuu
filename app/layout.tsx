@@ -84,6 +84,7 @@ export const metadata: Metadata = {
     title,
     description,
   },
+  other: { google: "notranslate" },
 };
 
 export const viewport: Viewport = {
@@ -100,10 +101,17 @@ export default function RootLayout({
   // `npm run typecheck` works on a clean checkout before the first build.
   children: React.ReactNode;
 }) {
+  /**
+   * Phones set to Russian auto-translate the Kyrgyz text into Russian, which
+   * mangles it. `translate="no"` is the standard opt-out (Chrome, Safari, Edge),
+   * the `notranslate` class is the one Google Translate itself looks for, and
+   * the `google` meta tag in `metadata` stops Chrome offering to translate.
+   */
   return (
     <html
       lang={DEFAULT_LANGUAGE}
-      className={`${asylbekShelley.variable} ${championScript.variable} ${forum.variable} ${lora.variable} antialiased`}
+      translate="no"
+      className={`notranslate ${asylbekShelley.variable} ${championScript.variable} ${forum.variable} ${lora.variable} antialiased`}
     >
       <body>{children}</body>
     </html>
